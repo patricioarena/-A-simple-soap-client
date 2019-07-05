@@ -30,9 +30,9 @@ namespace CallSOAP
             }
             using (WebResponse Serviceres = request.GetResponse())
             {
-                using (StreamReader rd = new StreamReader(Serviceres.GetResponseStream()))
+                using (StreamReader reader = new StreamReader(Serviceres.GetResponseStream()))
                 {
-                    var ServiceResult = rd.ReadToEnd();
+                    var ServiceResult = reader.ReadToEnd();
 
                     return this.JsonResponse(ServiceResult);
                 }
@@ -42,7 +42,10 @@ namespace CallSOAP
         public HttpWebRequest CreateSOAPWebRequest()
         {
             HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(url);
+            //var fileSize = new FileInfo(path).Length;
             Req.ContentType = "application/soap+xml;charset=\"utf-8\"";
+            //Req.ContentLength = fileSize;
+            Req.Host = "tasatesting.scba.gov.ar";
             Req.Method = "POST";
             return Req;
         }
