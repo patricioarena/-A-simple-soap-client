@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+  <soap12:Body>
+    <GenerarBoletaDePagoTasaDeJusticia xmlns="http://tempuri.org/">
+      <Nombre>?</Nombre>
+      <Apellido>?</Apellido>
+      <ImpuestoAbonar>?</ImpuestoAbonar>
+      <TipoDocumento>?</TipoDocumento>
+      <NroDocumento>?</NroDocumento>
+      <Caratula>?</Caratula>
+      <BaseImponible>?</BaseImponible>
+      <idOrganismo>?</idOrganismo>
+      <LetraReceptoria>?</LetraReceptoria>
+      <NumeroReceptoria>?</NumeroReceptoria>
+      <SufijoReceptoria>?</SufijoReceptoria>
+      <CodigoBarras>66465010110000000021036000336886451871900011369665</CodigoBarras>
+      <DetalleError>?</DetalleError>
+    </GenerarBoletaDePagoTasaDeJusticia>
+  </soap12:Body>
+</soap12:Envelope>

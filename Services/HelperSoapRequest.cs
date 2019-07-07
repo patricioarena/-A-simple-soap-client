@@ -1,28 +1,34 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
 namespace CallSOAP
 {
-    public class HelperSoapRequest
+    public class HelperSoapRequest:IHelperSoapRequest
     {
-        private string path;
-        private string url;
-        public HelperSoapRequest(string path, string url){
-            this.path = path;
-            this.url = url;
+        private readonly string Url;
+        private readonly IConfiguration Configuration;
+        private IMemoryCache MemoryCache;
+        public HelperSoapRequest(IConfigurationRoot configuration,IMemoryCache memoryCache)
+        {
+            Configuration = configuration;
+            MemoryCache = memoryCache;
+            Url = Configuration["SOAP:Url"];
         }
+
         public string InvokeService()
         {
             HttpWebRequest request = CreateSOAPWebRequest();
-            XmlDocument SOAPReqBody = new XmlDocument();
-
-            SOAPReqBody.Load(path);
+            XmlDocument SOAPReqBody = MemoryCache.Get<XmlDocument>("xml");
 
             using (Stream stream = request.GetRequestStream())
             {
@@ -41,10 +47,8 @@ namespace CallSOAP
 
         public HttpWebRequest CreateSOAPWebRequest()
         {
-            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(url);
-            //var fileSize = new FileInfo(path).Length;
+            HttpWebRequest Req = (HttpWebRequest)WebRequest.Create(Url);
             Req.ContentType = "application/soap+xml;charset=\"utf-8\"";
-            //Req.ContentLength = fileSize;
             Req.Host = "tasatesting.scba.gov.ar";
             Req.Method = "POST";
             return Req;
