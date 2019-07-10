@@ -1,6 +1,6 @@
 {
     // Use IntelliSense para saber los atributos posibles.
-    // Mantenga el puntero para ver las descripciones de los existentes atributos 
+    // Mantenga el puntero para ver las descripciones de los existentes atributos
     // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp3.0/CallSOAP.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.0/CallSOAP.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",

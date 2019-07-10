@@ -18,6 +18,7 @@ namespace CallSOAP
         private readonly string Url;
         private readonly IConfiguration Configuration;
         private IMemoryCache MemoryCache;
+
         public HelperSoapRequest(IConfigurationRoot configuration,IMemoryCache memoryCache)
         {
             Configuration = configuration;
@@ -39,7 +40,7 @@ namespace CallSOAP
                 using (StreamReader reader = new StreamReader(Serviceres.GetResponseStream()))
                 {
                     var ServiceResult = reader.ReadToEnd();
-
+                    MemoryCache.Remove("xml");
                     return this.JsonResponse(ServiceResult);
                 }
             }
@@ -53,6 +54,7 @@ namespace CallSOAP
             Req.Method = "POST";
             return Req;
         }
+
         public string JsonResponse(string input)
         {
             using (var xReader = XmlReader.Create(new StringReader(input)))
@@ -60,8 +62,7 @@ namespace CallSOAP
                 xReader.MoveToContent();
                 xReader.Read();
                 XNode node = XNode.ReadFrom(xReader);
-                string jsonText = JsonConvert.SerializeXNode(node);
-                return jsonText;
+                return JsonConvert.SerializeObject(node, Newtonsoft.Json.Formatting.Indented);
             }
         }
     }

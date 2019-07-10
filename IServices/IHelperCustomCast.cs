@@ -6,6 +6,6 @@ namespace CallSOAP.IServices
 {
     interface IHelperCustomCast
     {
-        void read();
+        void Generate(Object model);
     }
 }
